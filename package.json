@@ -1,14 +1,20 @@
 {
   "name": "strong-pubsub-proxy",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha"
   },
   "author": "Ritchie Martori",
-  "license": "ISC",
+  "license": {
+    "name": "Dual MIT/StrongLoop",
+    "url": "https://github.com/strongloop/strong-pubsub-proxy/blob/master/LICENSE"
+  },
   "dependencies": {
     "debug": "^2.1.2"
+  },
+  "devDependencies": {
+    "mocha": "^2.2.1"
   }
 }
