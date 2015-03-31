@@ -1,12 +1,12 @@
 {
   "name": "strong-pubsub-proxy",
   "version": "0.1.0",
-  "description": "",
+  "description": "Create a bridge between pubsub clients and brokers",
   "main": "index.js",
+  "author": "Ritchie Martori",
   "scripts": {
     "test": "mocha"
   },
-  "author": "Ritchie Martori",
   "license": {
     "name": "Dual MIT/StrongLoop",
     "url": "https://github.com/strongloop/strong-pubsub-proxy/blob/master/LICENSE"
@@ -15,6 +15,7 @@
     "debug": "^2.1.2"
   },
   "devDependencies": {
-    "mocha": "^2.2.1"
+    "mocha": "^2.2.1",
+    "strong-pubsub-test": "^0.0.0"
   }
 }
