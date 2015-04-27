@@ -1,9 +1,9 @@
-module.exports = Proxy
+module.exports = Bridge;
 
 var EventEmitter = require('events').EventEmitter;
 var inherits = require('util').inherits;
-var debug = require('debug')('strong-pubsub-proxy');
-var debugAction = require('debug')('strong-pubsub-proxy:action');
+var debug = require('debug')('strong-pubsub-bridge');
+var debugAction = require('debug')('strong-pubsub-bridge:action');
 
 /**
  * Forward the events of a `connection` using the provided `client`. Also
@@ -21,34 +21,34 @@ var debugAction = require('debug')('strong-pubsub-proxy:action');
  *
  * server.on('connection', function(connection) {
  *   var mqttConnection = new Connection(connection);
- *   var proxy = new Proxy(mqttConnection, client);
+ *   var bridge = new Bridge(mqttConnection, client);
  * });
  * ```
  *
- * @prop {Connection} connection The `Connection` instance provided to the `Proxy` constructor.
- * @prop {Client} client The `Client` instance provided to the `Proxy` constructor.
+ * @prop {Connection} connection The `Connection` instance provided to the `Bridge` constructor.
+ * @prop {Client} client The `Client` instance provided to the `Bridge` constructor.
  * @prop {Object[]} hooks An array hook objects.
  * @class
  */
 
-function Proxy(connection, client) {
+function Bridge(connection, client) {
   EventEmitter.call(this);
-  var proxy = this;
+  var bridge = this;
   this.connection = connection;
   this.client = client;
   var hooks = this.hooks = {};
 }
 
-inherits(Proxy, EventEmitter);
+inherits(Bridge, EventEmitter);
 
-Proxy.actions = ['connect', 'publish', 'subscribe', 'unsubscribe'];
+Bridge.actions = ['connect', 'publish', 'subscribe', 'unsubscribe'];
 
 /**
- * Connect the proxy to the broker using the provided `client` and `connection`.
+ * Connect the bridge to the broker using the provided `client` and `connection`.
  */
 
-Proxy.prototype.connect = function() {
-  var proxy = this;
+Bridge.prototype.connect = function() {
+  var bridge = this;
   var hooks = this.hooks;
   var client = this.client;
   var connection = this.connection;
@@ -58,12 +58,12 @@ Proxy.prototype.connect = function() {
     connection.publish(topic, message, options);
   });
 
-  Proxy.actions.forEach(function(action) {
+  Bridge.actions.forEach(function(action) {
     hooks[action] = hooks[action] || [];
 
     connection.on(action, function(ctx) {
       debugAction(action + ' %j', ctx);
-      proxy.trigger(action, ctx, function(err) {
+      bridge.trigger(action, ctx, function(err) {
         ctx.error = err;
 
         if(action === 'connect') {
@@ -114,7 +114,7 @@ Proxy.prototype.connect = function() {
   connection.on('error', error);
 
   function error(err) {
-    proxy.emit('error', err);
+    bridge.emit('error', err);
   }
 }
 
@@ -133,7 +133,7 @@ Proxy.prototype.connect = function() {
  * **Example**:
  * 
  * ```js
- * proxy.before('connect', function(ctx, next) {
+ * bridge.before('connect', function(ctx, next) {
  *   if(ctx.auth.password !== '1234') {
  *     ctx.badCredentials = true;
  *   }
@@ -181,11 +181,11 @@ Proxy.prototype.connect = function() {
  * - `ctx.topic` - `String` the topic the client would like to unsubscribe from.
  */
 
-Proxy.prototype.before = function(action, hook) {
+Bridge.prototype.before = function(action, hook) {
   this.hooks[action].push(hook);
 }
 
-Proxy.prototype.trigger = function(action, ctx, cb) {
+Bridge.prototype.trigger = function(action, ctx, cb) {
   var hooks = this.hooks[action];
   var numHooks = hooks && hooks.length;
   var cur = 0;

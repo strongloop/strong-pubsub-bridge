@@ -1,11 +1,11 @@
-# strong-pubsub-proxy
+# strong-pubsub-bridge
 
 **Create a bridge between a `Client` and a broker.**
 
 ## Installation
 
 ```
-$ npm install strong-pubsub-proxy
+$ npm install strong-pubsub-bridge
 ```
 
 ## Use
@@ -66,4 +66,4 @@ proxy.before(action, function(ctx, next) {
 
 ## API
 
-[See the API docs.](http://apidocs.strongloop.com/strong-pubsub-proxy)
+[See the API docs.](http://apidocs.strongloop.com/strong-pubsub-bridge)
