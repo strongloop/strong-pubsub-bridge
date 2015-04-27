@@ -1,5 +1,5 @@
 {
-  "name": "strong-pubsub-proxy",
+  "name": "strong-pubsub-bridge",
   "version": "0.1.0",
   "description": "Create a bridge between pubsub clients and brokers",
   "main": "index.js",
@@ -9,7 +9,7 @@
   },
   "license": {
     "name": "Dual MIT/StrongLoop",
-    "url": "https://github.com/strongloop/strong-pubsub-proxy/blob/master/LICENSE"
+    "url": "https://github.com/strongloop/strong-pubsub-bridge/blob/master/LICENSE"
   },
   "dependencies": {
     "debug": "^2.1.2"
