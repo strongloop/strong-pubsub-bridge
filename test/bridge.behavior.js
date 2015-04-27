@@ -5,10 +5,10 @@ var Proxy = require('../');
 var helpers = require('strong-pubsub-test');
 var usingMosquitto = helpers.usingMosquitto;
 var waitUntilAcceptingConnections = helpers.waitForConnection;
-var defineProxyBehaviorTests = helpers.defineProxyBehaviorTests;
+var defineBridgeBehaviorTests = helpers.defineBridgeBehaviorTests;
 var getPort = helpers.getFreePort;
 
-describe('proxy behavior', function () {
+describe('bridge behavior', function () {
   beforeEach(function(done) {
     var test = this;
     usingMosquitto(function(err, port) {
@@ -17,7 +17,7 @@ describe('proxy behavior', function () {
     });
   });
 
-  defineProxyBehaviorTests(Proxy, Client, Adapter, Connection, {
+  defineBridgeBehaviorTests(Proxy, Client, Adapter, Connection, {
     qos: 2,
     retain: true
   });
