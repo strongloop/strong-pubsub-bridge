@@ -1,4 +1,4 @@
-2015-04-27, Version 0.1.1
+2015-04-27, Version 0.2.0
 =========================
 
  * Rename to bridge (Ritchie Martori)
