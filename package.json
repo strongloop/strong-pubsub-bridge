@@ -16,6 +16,9 @@
   },
   "devDependencies": {
     "mocha": "^2.2.1",
-    "strong-pubsub-test": "^0.0.0"
+    "strong-pubsub": "^0.2.0",
+    "strong-pubsub-connection-mqtt": "^0.1.0",
+    "strong-pubsub-mqtt": "^0.1.0",
+    "strong-pubsub-test": "^0.2.0"
   }
 }
