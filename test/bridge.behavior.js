@@ -11,6 +11,11 @@ var getPort = helpers.getFreePort;
 describe('bridge behavior', function () {
   beforeEach(function(done) {
     var test = this;
+    if (process.env.CI) {
+      // CI already has mosquitto running on the default port
+      test.brokerPort = 1883;
+      return done();
+    }
     usingMosquitto(function(err, port) {
       test.brokerPort = port;
       done(err);
