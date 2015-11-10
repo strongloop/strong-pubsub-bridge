@@ -194,13 +194,15 @@ Bridge.prototype.trigger = function(action, ctx, cb) {
     return process.nextTick(cb);
   }
 
-  hooks[0].hook(ctx, next);
+  hooks[0](ctx, next);
 
   function next(err) {
     if(err || cur === numHooks) {
       return cb(err);
     }
-
-    hooks[++cur].hook(ctx, next);
+    
+    cb(null);
+    
+    //hooks[++cur].hook(ctx, next);
   }
 }
