@@ -46,7 +46,7 @@ function Bridge(connection, client) {
 
 inherits(Bridge, EventEmitter);
 
-Bridge.actions = ['connect', 'publish', 'subscribe', 'unsubscribe'];
+Bridge.actions = ['connect', 'disconnect', 'publish', 'subscribe', 'unsubscribe'];
 
 /**
  * Connect the bridge to the broker using the provided `client` and `connection`.
@@ -73,6 +73,10 @@ Bridge.prototype.connect = function() {
 
         if(action === 'connect') {
           return done();
+        }
+
+        if(action === 'disconnect') {
+          return client.end();
         }
 
         if(err) {
