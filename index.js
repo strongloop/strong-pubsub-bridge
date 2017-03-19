@@ -187,7 +187,13 @@ Bridge.prototype.connect = function() {
  */
 
 Bridge.prototype.before = function(action, hook) {
-  this.hooks[action].push(hook);
+  if (typeof hook !== 'function') {
+    throw new Error('hook function required');
+  }
+  if (!this.hooks[action]){
+    this.hooks[action]=[]
+  }
+    this.hooks[action].push(hook);
 }
 
 Bridge.prototype.trigger = function(action, ctx, cb) {
@@ -199,13 +205,13 @@ Bridge.prototype.trigger = function(action, ctx, cb) {
     return process.nextTick(cb);
   }
 
-  hooks[0].hook(ctx, next);
+  hooks[0](ctx, next);
 
   function next(err) {
-    if(err || cur === numHooks) {
+    if(err || !hooks[cur + 1]) {
       return cb(err);
     }
 
-    hooks[++cur].hook(ctx, next);
+    hooks[++cur](ctx, next);
   }
 }
